@@ -1,0 +1,30 @@
+#familyHistoryTitle{
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 70px;
+    padding-left: 10px;
+    grid-column-start: 2;
+    grid-column-end: 12;
+}
+
+@media(max-width: 1024px){
+    .section h2{
+        grid-column-start: 2;
+        grid-column-end: 8;
+    }
+}
+@media(max-width: 768px){
+    .section h2{
+        grid-column-start: 1;
+        grid-column-end: 7;
+    }
+}
+
+.riskFactors{
+    position: relative;
+    grid-column-start: 1;
+    grid-column-end: 13;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-gap: 20px;
+}
