@@ -75,7 +75,6 @@ function Demographics(props) {
             name='BP(mmHg)'
             onChange={props.addPatientDetails}
             sx = {props.inputStyleFull}
-            type = 'number'
         />
         <TextField
             id="outlined-basic"

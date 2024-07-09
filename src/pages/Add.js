@@ -29,6 +29,8 @@ function Add() {
 
     const [newPatient, setNewPatient] = useState(true);
 
+    const [initialDetailsAdded, setInitialDetailsAdded] = useState(false);
+
     const submitPatientDetails = () => {
         const token = localStorage.getItem('token');
         const headers = {
@@ -44,6 +46,7 @@ function Add() {
                 .then((res) => {
                     alert('Patient details added successfully');
                     setPatientDetails(initialPatientState);
+                    setInitialDetailsAdded(false);
                 })
                 .catch((err) => {
                     console.error('Error adding patient details:', err);
@@ -53,7 +56,7 @@ function Add() {
                         localStorage.removeItem('role');
                         window.location.href = '/';
                     } else {
-                        alert('Error adding patient details');
+                        alert('Error adding patient details, some issue with the server.');
                     }
                 });
         } else {
@@ -72,6 +75,7 @@ function Add() {
                 .then((res) => {
                     alert('Patient details updated successfully');
                     setPatientDetails(initialPatientState);
+                    setInitialDetailsAdded(false);
                 })
                 .catch((err) => {
                     console.error('Error updating patient details:', err);
@@ -81,7 +85,7 @@ function Add() {
                         localStorage.removeItem('role');
                         window.location.href = '/';
                     } else {
-                        alert('Error updating patient details');
+                        alert('Error updating patient details, some issue with the server.');
                     }
                 });
         }
@@ -135,10 +139,27 @@ function Add() {
                     }
                 }
             }
-        if(name !=='BMI' && name !== 'waistHipRatio'){
-            setPatientDetails({ ...patientDetails, [name]: value });
+        // Calculate FIB-4 if age, AST, ALT, and platelet count are provided
+        if (
+            (name === 'age' || name === 'AST(U/L)' || name === 'ALT(U/L)' || name === 'plateletCount(1000/mm3)') &&
+            patientDetails['age'] !== "" &&
+            patientDetails['AST(U/L)'] !== "" &&
+            patientDetails['ALT(U/L)'] !== "" &&
+            patientDetails['plateletCount(1000/mm3)'] !== ""
+        ) {
+            const age = name === 'age' ? value : patientDetails['age'];
+            const AST = name === 'AST(U/L)' ? value : patientDetails['AST(U/L)'];
+            const ALT = name === 'ALT(U/L)' ? value : patientDetails['ALT(U/L)'];
+            const plateletCount = name === 'plateletCount(1000/mm3)' ? value : patientDetails['plateletCount(1000/mm3)'];
+            if (age && AST && ALT && plateletCount) {
+                const FIB4 = ((age * AST) / (plateletCount * Math.sqrt(ALT))).toFixed(2);
+                setPatientDetails({ ...patientDetails, [name]: value, FIB4: FIB4 });
+                return;
+            }
         }
-        //console.log(patientDetails);
+        if(name !=='BMI' && name !== 'waistHipRatio' && name !== 'FIB4'){
+            setPatientDetails({ ...patientDetails, [name]: value });
+        }        
     }
 
     const checkPatient = () => {
@@ -146,6 +167,11 @@ function Add() {
         // check if subjectNo and initials are empty
         if(patientDetails.subjectNo === "" || patientDetails.initials === "" || patientDetails.subjectNo === null || patientDetails.initials === null){
             alert('Please enter subject number and initials');
+            return;
+        }
+
+        if(patientDetails.initials.length > 3){
+            alert('Initials should not be more than 3 letters long');
             return;
         }
 
@@ -166,7 +192,11 @@ function Add() {
                     }
                     setPatientDetails(patientData);
                     setNewPatient(false);
+                }else{
+                    setNewPatient(true);
+                    setPatientDetails({ ...initialPatientState, subjectNo: patientDetails.subjectNo, initials: patientDetails.initials, name: patientDetails.name });
                 }
+                setInitialDetailsAdded(true);
                 scrollTo('demographics');
             })
             .catch((err) => {
@@ -176,18 +206,28 @@ function Add() {
                     localStorage.removeItem('token');
                     localStorage.removeItem('role');
                     window.location.href = '/';
-                } else {
-                    alert('Error finding patient');
+                }
+                else {
+                    alert('Error finding patient, some issue with the server');
                 }
             });
     }
 
     const scrollTo = (name) => {
-        scroller.scrollTo(name, {
-            duration: 800,
-            delay: 0,
-            smooth: 'easeInOutQuart'
-        })
+        if(name === 'demographics'){
+            scroller.scrollTo(name, {
+                duration: 800,
+                delay: 0,
+                smooth: 'easeInOutQuart',
+                offset: 250
+            })
+        }else{
+            scroller.scrollTo(name, {
+                duration: 800,
+                delay: 0,
+                smooth: 'easeInOutQuart'
+            })
+        }
     }
 
   return (
@@ -238,40 +278,53 @@ function Add() {
                 <Proceed checkPatient={checkPatient} />
             </div>
             <Element name="demographics">
+            {initialDetailsAdded &&
+            // <Element name="demographics">
                 <Demographics addPatientDetails={addPatientDetails} patientDetails={patientDetails} 
                     inputStyleFull={inputStyleFull} 
                     inputStyleHalfLeft={inputStyleHalfLeft} 
                     inputStyleHalfRight={inputStyleHalfRight} next = {scrollTo}
                 />
+            // </Element>
+            }
             </Element>
+            {initialDetailsAdded &&
             <Element name="riskFactors">
-            <RiskFactors addPatientDetails={addPatientDetails} patientDetails={patientDetails}
-                inputStyleFull={inputStyleFull}
-                inputStyleHalfLeft={inputStyleHalfLeft}
-                inputStyleHalfRight={inputStyleHalfRight} next = {scrollTo}
-            />
+                <RiskFactors addPatientDetails={addPatientDetails} patientDetails={patientDetails}
+                    inputStyleFull={inputStyleFull}
+                    inputStyleHalfLeft={inputStyleHalfLeft}
+                    inputStyleHalfRight={inputStyleHalfRight} next = {scrollTo}
+                />
             </Element>
+            }
+
+            {initialDetailsAdded &&
             <Element name="investigations">
-            <Investigations addPatientDetails={addPatientDetails} patientDetails={patientDetails}
-                inputStyleFull={inputStyleFull}
-                inputStyleHalfLeft={inputStyleHalfLeft}
-                inputStyleHalfRight={inputStyleHalfRight} next = {scrollTo}
-            />
+                <Investigations addPatientDetails={addPatientDetails} patientDetails={patientDetails}
+                    inputStyleFull={inputStyleFull}
+                    inputStyleHalfLeft={inputStyleHalfLeft}
+                    inputStyleHalfRight={inputStyleHalfRight} next = {scrollTo}
+                />
             </Element>
+            }
+            {initialDetailsAdded &&
             <Element name="imaging">
-            <Imaging addPatientDetails={addPatientDetails} patientDetails={patientDetails}
-                inputStyleFull={inputStyleFull}
-                inputStyleHalfLeft={inputStyleHalfLeft}
-                inputStyleHalfRight={inputStyleHalfRight} next = {scrollTo}
-            />
+                <Imaging addPatientDetails={addPatientDetails} patientDetails={patientDetails}
+                    inputStyleFull={inputStyleFull}
+                    inputStyleHalfLeft={inputStyleHalfLeft}
+                    inputStyleHalfRight={inputStyleHalfRight} next = {scrollTo}
+                />
             </Element>
+            }
+            {initialDetailsAdded &&
             <Element name="management">
-            <Management addPatientDetails={addPatientDetails} patientDetails={patientDetails}
-                inputStyleFull={inputStyleFull}
-                inputStyleHalfLeft={inputStyleHalfLeft}
-                inputStyleHalfRight={inputStyleHalfRight} next = {scrollTo} submit = {submitPatientDetails}
-            />
+                <Management addPatientDetails={addPatientDetails} patientDetails={patientDetails}
+                    inputStyleFull={inputStyleFull}
+                    inputStyleHalfLeft={inputStyleHalfLeft}
+                    inputStyleHalfRight={inputStyleHalfRight} next = {scrollTo} submit = {submitPatientDetails}
+                />
             </Element>
+            }
             {/* <Submit submit={submitPatientDetails} /> */}
         </div>
     </div>

@@ -50,7 +50,7 @@ function View() {
             localStorage.removeItem('role');
             window.location.href = '/'; // Assuming '/' is your login page route
         } else {
-            alert('Error fetching data');
+            alert('Error fetching data, some issue with the server.');
             console.log(error);
         }
     });

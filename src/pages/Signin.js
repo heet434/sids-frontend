@@ -47,7 +47,11 @@ const login = async (userName, password) => {
     return { success: true, token, role };
   } catch (error) {
     console.error('Login failed:', error);
-    return { success: false, error: error.response.data.error };
+    if(error.response){
+      return { success: false, error: error.response.data.error };
+    }else{
+      return { success: false, error: 'Unknown error, probably issue with the server.' };
+    }
   }
 };
 
@@ -142,13 +146,13 @@ export default function SignInSide() {
               >
                 Sign In
               </Button>
-              <Grid container>
+              {/* <Grid container>
                 <Grid item>
                   <Link href="#" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
-              </Grid>
+              </Grid> */}
               <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>

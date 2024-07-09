@@ -12,7 +12,8 @@ import Next from '../../components/Next';
 function Imaging(props) {
 
     const [fibroscan, setFibroscan] = useState(false)
-    const [other, setOther] = useState(false)
+    const [MR, setMR] = useState(false)
+    const [USGAbdomen, setUSGAbdomen] = useState(false)
 
     useEffect(() => {
         if(props.patientDetails['fibroscan/transientElastography'] === true || props.patientDetails['fibroscan/transientElastography'] === 'true'){
@@ -20,10 +21,15 @@ function Imaging(props) {
         }else {
             setFibroscan(false)
         }
-        if(props.patientDetails['otherElastography'] === true || props.patientDetails['otherElastography'] === 'true'){
-            setOther(true)
+        if(props.patientDetails['MRElastography'] === true || props.patientDetails['MRElastography'] === 'true'){
+            setMR(true)
         }else {
-            setOther(false)
+            setMR(false)
+        }
+        if(props.patientDetails['USGAbdomen'] === true || props.patientDetails['USGAbdomen'] === 'true'){
+            setUSGAbdomen(true)
+        }else{
+            setUSGAbdomen(false)
         }
     }
     , [props.patientDetails])
@@ -87,6 +93,19 @@ function Imaging(props) {
         <div className = 'section-title'>
             <h1>Imaging</h1>
         </div>
+        {createFormControl('USG Abdomen', 'USGAbdomen', fullStyle)}
+        {USGAbdomen &&
+            createFormControl('Fatty Liver', 'fattyLiver', leftStyle)
+        }
+        {USGAbdomen &&
+            createFormControl('Features Of Cirrhosis', 'featuresOfCirrhosis', rightStyle)
+        }
+        {USGAbdomen &&
+            createFormControl('Ascites', 'ascites', leftStyle)
+        }
+        {USGAbdomen &&
+            createFormControl('Space Occupying Lesions in Liver', 'spaceOccupyingLesionsInLiver', rightStyle)
+        }
         {createFormControl('Fibroscan / Transient Elastography', 'fibroscan/transientElastography', fullStyle)}
         {fibroscan &&
             <TextField
@@ -112,26 +131,26 @@ function Imaging(props) {
                 type = 'number'
             />
         }
-        {createFormControl('Other Elastography', 'otherElastography', fullStyle)}
-        {other &&
+        {createFormControl('MR Elastography', 'MRElastography', fullStyle)}
+        {MR &&
             <TextField
                 id="outlined-basic"
                 label="LSM (kPA)"
                 variant="outlined"
-                name='otherElastographyLSM(kPA)'
-                value={props.patientDetails['otherElastographyLSM(kPA)']}
+                name='MRElastographyLSM(kPA)'
+                value={props.patientDetails['MRElastographyLSM(kPA)']}
                 onChange={props.addPatientDetails}
                 sx = {fullStyle}
                 type = 'number'
             />
         }
-        {other &&
+        {MR &&
             <TextField
                 id="outlined-basic"
                 label="CAP (dB/m)"
                 variant="outlined"
-                name='otherElastographyCAP(dB/m)'
-                value={props.patientDetails['otherElastographyCAP(dB/m)']}
+                name='MRElastographyCAP(dB/m)'
+                value={props.patientDetails['MRElastographyCAP(dB/m)']}
                 onChange={props.addPatientDetails}
                 sx = {fullStyle}
                 type = 'number'

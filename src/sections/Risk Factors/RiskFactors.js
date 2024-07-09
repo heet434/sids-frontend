@@ -56,99 +56,99 @@ function RiskFactors(props) {
                     >
                     <TextField
                         id="outlined-basic"
-                        label="Overweight (Days)"
+                        label="Overweight (Months)"
                         variant="outlined"
-                        name='overweight(days)'
-                        value={props.patientDetails['overweight(days)']}
+                        name='overweight(months)'
+                        value={props.patientDetails['overweight(months)']}
                         onChange={props.addPatientDetails}
                         sx = {props.inputStyleHalfLeft}
                         type = 'number'
                     />
                     <TextField
                         id="outlined-basic"
-                        label="Obesity (Days)"
+                        label="Obesity (Months)"
                         variant="outlined"
-                        name='obesity(days)'
-                        value={props.patientDetails['obesity(days)']}
+                        name='obesity(months)'
+                        value={props.patientDetails['obesity(months)']}
                         onChange={props.addPatientDetails}
                         sx = {props.inputStyleHalfRight}
                         type = 'number'
                     />
                     <TextField
                         id="outlined-basic"
-                        label="Type II Diabetes mellitus / Impaired fasting glucose (Days)"
+                        label="Type II Diabetes mellitus / Impaired fasting glucose (Months)"
                         variant="outlined"
-                        name='diabetes(days)'
-                        value={props.patientDetails['diabetes(days)']}
+                        name='diabetes(months)'
+                        value={props.patientDetails['diabetes(months)']}
                         onChange={props.addPatientDetails}
                         sx = {props.inputStyleFull}
                     />
                     <TextField
                         id="outlined-basic"
-                        label="Hypertension (Days)"
+                        label="Hypertension (Months)"
                         variant="outlined"
-                        name='hypertension(days)'
-                        value={props.patientDetails['hypertension(days)']}
+                        name='hypertension(months)'
+                        value={props.patientDetails['hypertension(months)']}
                         onChange={props.addPatientDetails}
                         sx = {props.inputStyleHalfLeft}
                         type = 'number'
                     />
                     <TextField
                         id = "outlined-basic"
-                        label = "increasedTG (Days)"
+                        label = "increasedTG (Months)"
                         variant = "outlined"
-                        name = "increasedTG(days)"
-                        value = {props.patientDetails['increasedTG(days)']}
+                        name = "increasedTG(months)"
+                        value = {props.patientDetails['increasedTG(months)']}
                         onChange = {props.addPatientDetails}
                         sx = {props.inputStyleHalfRight}
                         type = 'number'
                     />
                     <TextField
                         id="outlined-basic"
-                        label="Low HDL (Days)"
+                        label="Low HDL (Months)"
                         variant="outlined"
-                        name='lowHDL(days)'
-                        value={props.patientDetails['lowHDL(days)']}
+                        name='lowHDL(months)'
+                        value={props.patientDetails['lowHDL(months)']}
                         onChange={props.addPatientDetails}
                         sx = {props.inputStyleHalfLeft}
                         type = 'number'
                     />
                     <TextField
                         id="outlined-basic"
-                        label="High LDL (Days)"
+                        label="High LDL (Months)"
                         variant="outlined"
-                        name='highLDL(days)'
-                        value={props.patientDetails['highLDL(days)']}
+                        name='highLDL(months)'
+                        value={props.patientDetails['highLDL(months)']}
                         onChange={props.addPatientDetails}
                         sx = {props.inputStyleHalfRight}
                         type = 'number'
                     />
                     <TextField
                         id="outlined-basic"
-                        label="Both Low HDL & Increased TG (Days)"
+                        label="Both Low HDL & Increased TG (Months)"
                         variant="outlined"
-                        name='bothIncreasedTGAndLowHDL(days)'
-                        value={props.patientDetails['bothIncreasedTGAndLowHDL(days)']}
+                        name='bothIncreasedTGAndLowHDL(months)'
+                        value={props.patientDetails['bothIncreasedTGAndLowHDL(months)']}
                         onChange={props.addPatientDetails}
                         sx = {props.inputStyleFull}
                         type = 'number'
                     />
                     <TextField
                         id="outlined-basic"
-                        label="CAD (Days)"
+                        label="CAD (Months)"
                         variant="outlined"
-                        name='CAD(days)'
-                        value={props.patientDetails['CAD(days)']}
+                        name='CAD(months)'
+                        value={props.patientDetails['CAD(months)']}
                         onChange={props.addPatientDetails}
                         sx = {props.inputStyleHalfLeft}
                         type = 'number'
                     />
                     <TextField
                         id="outlined-basic"
-                        label="CVD (Days)"
+                        label="CVD (Months)"
                         variant="outlined"
-                        name='CVD(days)'
-                        value={props.patientDetails['CVD(days)']}
+                        name='CVD(months)'
+                        value={props.patientDetails['CVD(months)']}
                         onChange={props.addPatientDetails}
                         sx = {props.inputStyleHalfRight}
                         type = 'number'
@@ -160,60 +160,60 @@ function RiskFactors(props) {
                     </div>
                     <TextField
                         id="outlined-basic"
-                        label="DM (Days)"
+                        label="DM (Months)"
                         variant="outlined"
-                        name='DM(days)'
-                        value={props.patientDetails['DM(days)']}
+                        name='DM(months)'
+                        value={props.patientDetails['DM(months)']}
                         onChange={props.addPatientDetails}
                         sx = {props.inputStyleHalfLeft}
                         type = 'number'
                     />
                     <TextField
                         id="outlined-basic"
-                        label="HT (Days)"
+                        label="HT (Months)"
                         variant="outlined"
-                        name='HT(days)'
-                        value={props.patientDetails['HT(days)']}
+                        name='HT(months)'
+                        value={props.patientDetails['HT(months)']}
                         onChange={props.addPatientDetails}
                         sx = {props.inputStyleHalfRight}
                         type = 'number'
                     />
                     <TextField
                         id="outlined-basic"
-                        label="dyslipidaemia (Days)"
+                        label="dyslipidaemia (Months)"
                         variant="outlined"
-                        name='dyslipidaemia(days)'
-                        value={props.patientDetails['dyslipidaemia(days)']}
+                        name='dyslipidaemia(months)'
+                        value={props.patientDetails['dyslipidaemia(months)']}
                         onChange={props.addPatientDetails}
                         sx = {props.inputStyleHalfLeft}
                         type = 'number'
                     />
                     <TextField
                         id="outlined-basic"
-                        label="CAD (Days) (Family)"
+                        label="CAD (Months) (Family)"
                         variant="outlined"
-                        name='familyCAD(days)'
-                        value={props.patientDetails['familyCAD(days)']}
+                        name='familyCAD(months)'
+                        value={props.patientDetails['familyCAD(months)']}
                         onChange={props.addPatientDetails}
                         sx = {props.inputStyleHalfRight}
                         type = 'number'
                     />
                     <TextField
                         id="outlined-basic"
-                        label="CVD (Days) (Family)"
+                        label="CVD (Months) (Family)"
                         variant="outlined"
-                        name='familyCVD(days)'
-                        value={props.patientDetails['familyCVD(days)']}
+                        name='familyCVD(months)'
+                        value={props.patientDetails['familyCVD(months)']}
                         onChange={props.addPatientDetails}
                         sx = {props.inputStyleFull}
                         type = 'number'
                     />
                     <TextField
                         id="outlined-basic"
-                        label="Fatty Liver (Days)"
+                        label="Fatty Liver (Months)"
                         variant="outlined"
-                        name='fattyLiver(days)'
-                        value={props.patientDetails['fattyLiver(days)']}
+                        name='fattyLiver(months)'
+                        value={props.patientDetails['fattyLiver(months)']}
                         onChange={props.addPatientDetails}
                         sx = {props.inputStyleFull}
                     /> 

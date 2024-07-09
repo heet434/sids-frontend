@@ -245,6 +245,16 @@ function Investigations(props) {
             sx = {props.inputStyleHalfRight}
             type = 'number'
         />
+        <TextField
+            id="outlined-basic"
+            label="FIB-4"
+            variant='outlined'
+            value={props.patientDetails['FIB4']}
+            name='FIB4'
+            sx = {props.inputStyleFull}
+            disabled
+        />
+
         <div className='investigations-subtitle'>
             <h2>Other Investigations</h2>
         </div>
